@@ -25,5 +25,5 @@ steps:
   image: plugins/s3
   settings:
     bucket: my-drone-learning-s3-bucket
-    source: ./bin/**/*
+    source: ./bin/*
     target: /${DRONE_BUILD_NUMBER}/
