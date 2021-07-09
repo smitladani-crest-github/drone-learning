@@ -1,9 +1,15 @@
 kind: pipeline
-name: default
+name: drone-learning
 
 steps:
-- name: test
+- name: python-execution
   image: python
   commands:
   - pip install -r requirement.txt
   - python main.py
+
+- name: go-execution
+  image: golang
+  commands:
+  - go build -o ./bin/
+  - ./bin/dronelearning
