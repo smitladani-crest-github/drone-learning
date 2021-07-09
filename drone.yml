@@ -1,5 +1,6 @@
 kind: pipeline
-name: drone-learning
+type: docker
+name: python-drone
 
 steps:
 - name: python-execution
@@ -8,8 +9,21 @@ steps:
   - pip install -r requirement.txt
   - python main.py
 
+---
+kind: pipeline
+type: docker
+name: s3-upload-go
+
+steps:
 - name: go-execution
   image: golang
   commands:
   - go build -o ./bin/
   - ./bin/dronelearning
+
+- name: upload-to-s3
+  image: plugins/s3
+  settings:
+    bucket: my-drone-learning-s3-bucket
+    source: ./bin/**/*
+    target: /${DRONE_BUILD_NUMBER}/
